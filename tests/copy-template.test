@@ -1,0 +1,30 @@
+#!/bin/bash
+TEST_PATH=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd )
+cd $TEST_PATH
+
+SCRIPT_PATH="$TEST_PATH/../"
+APP_PATH=$(mktemp -d /tmp/bashtest-XXXXXXX)
+PACKAGE_PATH="${APP_PATH}/packages"
+
+source ../lib/functions.sh
+source ../lib/copy_template.sh
+. ../lib/assert.sh 
+
+TEST=1
+
+
+# set up
+mkdir -p $PACKAGE_PATH/test
+
+# run 
+assert_raises "copy_template package.js $PACKAGE_PATH/test/package.js %PACKAGE_NAME%=test"
+
+# assert 
+assert_raises "stat ${APP_PATH}/packages/test/package.js"
+assert_raises "grep -F \"name: 'test'\" ${APP_PATH}/packages/test/package.js "
+
+assert_end ${BASH_SOURCE[0]}
+
+# tear down
+
+# rm -rf "$APP_PATH"
