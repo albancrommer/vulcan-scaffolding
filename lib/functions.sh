@@ -16,7 +16,7 @@ function ask(){
     
     [ -n "$TEST" ] && { echo "test" ; exit ; }
     read -p "$1 "
-    [ -z "$REPLY" ] && { red "waiting for reply."; return $( ask "$1" ); }
+    [ -z "$REPLY" ] && echo $( ask "$1" ); 
     echo "$REPLY"
 }
 
@@ -41,4 +41,8 @@ function panic(){ red "$1" ; exit 1 ; }
 ##
 function sanitize(){
     echo ${@//[^a-zA-Z0-9-_]/}
+}
+
+function get_tmp_file(){
+    echo $(mktemp "/tmp/vulcan-bootstrap-XXXX")
 }

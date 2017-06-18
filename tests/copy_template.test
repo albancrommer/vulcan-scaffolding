@@ -16,12 +16,14 @@ TEST=1
 # set up
 mkdir -p $PACKAGE_PATH/test
 
-# run 
-assert_raises "copy_template package.js $PACKAGE_PATH/test/package.js %PACKAGE_NAME%=test"
-
 # assert 
+# root file
+assert_raises "copy_template package.js $PACKAGE_PATH/test/package.js %PACKAGE_NAME%=test"
 assert_raises "stat ${APP_PATH}/packages/test/package.js"
 assert_raises "grep -F \"name: 'test'\" ${APP_PATH}/packages/test/package.js "
+# dir file
+assert_raises "copy_template lib/modules/index.js $PACKAGE_PATH/test/lib/modules/index.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/index.js"
 
 assert_end ${BASH_SOURCE[0]}
 

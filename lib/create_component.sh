@@ -3,7 +3,7 @@
 ##
 function create_component(){
     
-    # It should require a global name
+    # It should require a package name
     if [ -n "$1" ] ; then 
         PACKAGE_NAME="$1"
     else 
@@ -13,32 +13,32 @@ function create_component(){
     # It should require a valid package 
     directory_exists "$PACKAGE_PATH/$PACKAGE_NAME" || panic "Missing package $PACKAGE_NAME"
    
-    # It should request the component parent 
-    QUERY_COMPONENT_PARENT=$( ask "Please provide component's parent:" )
+    # It should request the module name
+    MODULE_NAME=$( ask "Please provide module name:" )
 
-    # It should sanitize the component parent
-    COMPONENT_PARENT=$( sanitize "$QUERY_COMPONENT_PARENT" )
+    # It should check the module exists
+    directory_exists "$PACKAGE_PATH/$PACKAGE_NAME/lib/modules/$MODULE_NAME" || panic "Module doesn't exist"
 
-    # It should create the parent if need be
-    directory_exists "$PACKAGE_PATH/$PACKAGE_NAME/components/$COMPONENT_PARENT" || {
-
-        grey "Creating $PACKAGE_PATH/$PACKAGE_NAME/components/$COMPONENT_PARENT"
-        mkdir -p "$PACKAGE_PATH/$PACKAGE_NAME/components/$COMPONENT_PARENT"
-
-    }
-
-    DESCRIPTION=$(ask "Please provide a description. Ex: 'Provides a movie list'")
-    COMPONENT_NAME=$(ask "Please provide a component name. Ex: 'MyMovieList'")
-    COLLECTION_NAME=$(ask "Please provide a collection name. Ex: 'Movie'")
+    DESCRIPTION=$(ask "Please provide a description for your component. Ex: 'Provides a movie list': ")
+    COMPONENT_NAME=$(ask "Please provide a component name. Ex: 'MyMovieList': ")
+    COLLECTION_NAME=$(ask "Please provide a collection name. Ex: 'Movie': ")
+    COMPONENT_ROUTE=$(ask "Please provide a route. Ex: '/movies': ")
     COLLECTION_NAME_C=${COLLECTION_NAME^}
     COLLECTION_NAME_U=${COLLECTION_NAME,,}
+    COMPONENT_NAME_C=${COMPONENT_NAME^}
+    COMPONENT_NAME_U=${COMPONENT_NAME,,}
 
-    # It should copy the component
-    copy_template component.js "${PACKAGE_PATH}/${PACKAGE_NAME}/components/${COMPONENT_PARENT}/${COMPONENT_NAME}.jsx" \
+    # It should template the component
+    copy_template component.js "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/components/${MODULE_NAME}/${COMPONENT_NAME}.jsx" \
         %DESCRIPTION%="$DESCRIPTION" \
         %COMPONENT_NAME%="$COMPONENT_NAME" \
         %COLLECTION_NAME_C%="$COLLECTION_NAME_C" \
         %COLLECTION_NAME_U%="$COLLECTION_NAME_U"
 
+    # It should create a partial to import a route
+    echo "
+import ${COMPONENT_NAME} from '../components/${MODULE_NAME}/${COMPONENT_NAME}.jsx';
+addRoute({ name: '${COMPONENT_NAME_U}', path: '${COMPONENT_ROUTE}', component: ${COMPONENT_NAME_C} });
+" >>  "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/modules/routes.js"
     
 }

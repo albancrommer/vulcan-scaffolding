@@ -16,11 +16,13 @@ source ../lib/create_package.sh
 # set up
 mkdir -p $PACKAGE_PATH
 
-# run 
-assert_raises "create_package test"
-
 # assert 
+assert_raises "create_package test"
 assert_raises "stat ${APP_PATH}/packages/test"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/index.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/routes.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/client/main.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/server/main.js"
 assert_end ${BASH_SOURCE[0]}
 
 # tear down

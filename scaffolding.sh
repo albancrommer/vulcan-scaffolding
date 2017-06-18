@@ -35,6 +35,7 @@ PACKAGE_PATH="${APP_PATH}/packages"
 
 # It should source helpers
 source ${SCRIPT_PATH}/lib/functions.sh
+source "$SCRIPT_PATH/lib/copy_template.sh"
 
 # It should read the args
 while true ; do
@@ -61,16 +62,18 @@ done
 
 case "$ACTION" in 
     (component|c)
-        source "$SCRIPT_PATH/lib/copy_template.sh"
         source "$SCRIPT_PATH/lib/create_component.sh"
         create_component $PACKAGE_NAME
     ;;
-    (model|m)
+    (module)
+        source "$SCRIPT_PATH/lib/create_module.sh"
+        create_module $PACKAGE_NAME
+    ;;
+    (model)
         panic "not implemented yet"
 
     ;;
     (package|p)
-        source "$SCRIPT_PATH/lib/copy_template.sh"
         source "$SCRIPT_PATH/lib/create_package.sh"
         PACKAGE_NAME=$(create_package)
         #meteor add $PACKAGE_NAME

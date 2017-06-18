@@ -1,0 +1,38 @@
+#!/bin/bash
+TEST_PATH=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd )
+cd $TEST_PATH
+
+SCRIPT_PATH="$TEST_PATH/../"
+APP_PATH=$(mktemp -d /tmp/bashtest-XXXXXXX)
+PACKAGE_PATH="${APP_PATH}/packages"
+
+source ../lib/functions.sh
+source ../lib/create_package.sh
+source ../lib/create_module.sh
+source ../lib/copy_template.sh
+. ../lib/assert.sh 
+
+TEST=1
+
+# set up
+mkdir -p $PACKAGE_PATH/test
+
+# run 
+assert_raises "create_package test"
+assert_raises "create_module test"
+assert_raises "stat ${APP_PATH}/packages/test/lib/server/main.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/index.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/routes.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/mutations.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/parameters.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/schema.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/permissions.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/resolvers.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/fragments.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/modules/test/collection.js"
+assert_raises "stat ${APP_PATH}/packages/test/lib/client/main.js"
+assert_end ${BASH_SOURCE[0]}
+
+# tear down
+
+# rm -rf "$APP_PATH"
