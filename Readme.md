@@ -23,5 +23,5 @@ git clone https://github.com/albancrommer/vulcan-scaffolding _scaffolding && cd 
 ./scaffolding.sh --package my-awesome-project module
 
 # Start adding components
-./scaffolding.sh --package my-awesome-project component
+./scaffolding.sh --package my-awesome-project --module Ideas component
 ```
