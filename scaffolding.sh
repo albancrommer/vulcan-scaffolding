@@ -46,6 +46,10 @@ while true ; do
             PACKAGE_NAME="$2"
             shift
         ;;
+        (-m | --module)
+            MODULE_NAME="$2"
+            shift
+        ;;
         (-h | --help)
               usage ; exit 0;
             ;;
@@ -60,18 +64,17 @@ done
 # It should require an action
 [ -z "$ACTION" ] && panic "Missing action."
 
+# It should a global dependencies variabl
+declare -A GLOBAL_DEPENDENCIES=( [PACKAGE_NAME]="$PACKAGE_NAME" [MODULE_NAME]="$MODULE_NAME" ) 
+
 case "$ACTION" in 
     (component|c)
         source "$SCRIPT_PATH/lib/create_component.sh"
-        create_component $PACKAGE_NAME
+        create_component
     ;;
-    (module)
+    (module|m)
         source "$SCRIPT_PATH/lib/create_module.sh"
-        create_module $PACKAGE_NAME
-    ;;
-    (model)
-        panic "not implemented yet"
-
+        create_module 
     ;;
     (package|p)
         source "$SCRIPT_PATH/lib/create_package.sh"

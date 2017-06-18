@@ -3,9 +3,9 @@
 ##
 function create_module(){
     
-    # It should require a global name
-    if [ -n "$1" ] ; then 
-        PACKAGE_NAME="$1"
+    # It should require a package name
+    if [ -n "${GLOBAL_DEPENDENCIES["PACKAGE_NAME"]}" ]; then
+        PACKAGE_NAME="${GLOBAL_DEPENDENCIES["PACKAGE_NAME"]}"
     else 
         PACKAGE_NAME=$(ask "Please give the package name:")
     fi
@@ -13,8 +13,12 @@ function create_module(){
     # It should require a valid package 
     directory_exists "$PACKAGE_PATH/$PACKAGE_NAME" || panic "Missing package $PACKAGE_NAME"
    
-    # It should request the module 
-    QUERY_MODULE=$( ask "Please provide module's name (ex: movies):" )
+    # It should request the module name
+    if [ -n "${GLOBAL_DEPENDENCIES["MODULE_NAME"]}" ]; then
+        QUERY_MODULE="${GLOBAL_DEPENDENCIES["MODULE_NAME"]}"
+    else 
+        QUERY_MODULE=$( ask "Please provide module name:" )
+    fi
 
     # It should sanitize the module
     MODULE_NAME=$( sanitize "$QUERY_MODULE" )

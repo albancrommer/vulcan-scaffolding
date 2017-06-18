@@ -4,8 +4,8 @@
 function create_component(){
     
     # It should require a package name
-    if [ -n "$1" ] ; then 
-        PACKAGE_NAME="$1"
+    if [ -n "${GLOBAL_DEPENDENCIES["PACKAGE_NAME"]}" ]; then
+        PACKAGE_NAME="${GLOBAL_DEPENDENCIES["PACKAGE_NAME"]}"
     else 
         PACKAGE_NAME=$(ask "Please give the package name:")
     fi
@@ -14,9 +14,13 @@ function create_component(){
     directory_exists "$PACKAGE_PATH/$PACKAGE_NAME" || panic "Missing package $PACKAGE_NAME"
    
     # It should request the module name
-    MODULE_NAME=$( ask "Please provide module name:" )
+    if [ -n "${GLOBAL_DEPENDENCIES["MODULE_NAME"]}" ]; then
+        MODULE_NAME="${GLOBAL_DEPENDENCIES["MODULE_NAME"]}"
+    else 
+        MODULE_NAME=$( ask "Please provide module name:" )
+    fi
 
-    # It should check the module exists
+    # It should require a valid module 
     directory_exists "$PACKAGE_PATH/$PACKAGE_NAME/lib/modules/$MODULE_NAME" || panic "Module doesn't exist"
 
     DESCRIPTION=$(ask "Please provide a description for your component. Ex: 'Provides a movie list': ")

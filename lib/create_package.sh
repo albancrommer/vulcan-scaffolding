@@ -1,6 +1,11 @@
 function create_package(){
-    # It should require a global name
-    QUERY_PACKAGE_NAME=$(ask "Please give the package name:")
+
+    # It should require a package name
+    if [ -n "${GLOBAL_DEPENDENCIES["PACKAGE_NAME"]}" ]; then
+        QUERY_PACKAGE_NAME="${GLOBAL_DEPENDENCIES["PACKAGE_NAME"]}"
+    else 
+        QUERY_PACKAGE_NAME=$(ask "Please give the package name:")
+    fi
 
     # It should sanitize the name
     PACKAGE_NAME=$( sanitize $QUERY_PACKAGE_NAME)
