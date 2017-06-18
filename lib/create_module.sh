@@ -55,7 +55,9 @@ function create_module(){
     # It should plug the collection in the modules list
     echo -e "\n// The $MODULE_NAME_C collection\nimport './${MODULE_NAME_U}/collection.js';" >> "$PACKAGE_PATH/$PACKAGE_NAME/lib/modules/$MODULE/index.js" 
 
-    
+    # It should inform about success
+    green "Successfully created module" 
+
 }
 
 

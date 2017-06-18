@@ -27,8 +27,8 @@ DOC_BLOCK
 # The "scaffolding" project root dir
 SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd )
 
-# The meteor / vulcan root dir
-APP_PATH="/tmp/vulcan"
+# The root dir of the Meteor/Vulcan application
+APP_PATH="$SCRIPT_PATH/../../"
 
 # The meteor / vulcan packages dir
 PACKAGE_PATH="${APP_PATH}/packages"
@@ -78,8 +78,8 @@ case "$ACTION" in
     ;;
     (package|p)
         source "$SCRIPT_PATH/lib/create_package.sh"
-        PACKAGE_NAME=$(create_package)
-        #meteor add $PACKAGE_NAME
+        create_package
+        meteor add $PACKAGE_NAME
     ;;
     (*)
         panic "Invalid action $ACTION requested"

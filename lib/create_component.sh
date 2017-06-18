@@ -45,4 +45,8 @@ import ${COMPONENT_NAME} from '../components/${MODULE_NAME}/${COMPONENT_NAME}.js
 addRoute({ name: '${COMPONENT_NAME_U}', path: '${COMPONENT_ROUTE}', component: ${COMPONENT_NAME_C} });
 " >>  "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/modules/routes.js"
     
+    # It should inform about success
+    green "Successfully created component" 
+
+
 }

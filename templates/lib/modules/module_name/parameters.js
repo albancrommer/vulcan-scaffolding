@@ -7,4 +7,4 @@ function sortByYear (parameters, terms) {
   };
 }
 
-addCallback('%MODULE_NAME_U%s.parameters', sortByYear);
+addCallback('%MODULE_NAME_U%.parameters', sortByYear);

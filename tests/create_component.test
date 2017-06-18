@@ -27,4 +27,4 @@ assert_end ${BASH_SOURCE[0]}
 
 # tear down
 
-# rm -rf "$APP_PATH"
+rm -rf "$APP_PATH"

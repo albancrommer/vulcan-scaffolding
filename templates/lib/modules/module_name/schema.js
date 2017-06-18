@@ -27,6 +27,17 @@ const schema = {
     viewableBy: ['guests'],
     resolveAs: 'user: User',
   },
+  // Caution. You must have *at least one* insertable|editable prop 
+  // Or will cause a "Type "XXXInput" not found in document."
+  // See https://github.com/VulcanJS/Vulcan/issues/1643
+  name: {
+    label: 'Name',
+    type: String,
+    optional: true,
+    viewableBy: ['guests'],
+    insertableBy: ['members'],
+    editableBy: ['members'],
+  },
   // scaffolding.custom
   
 };

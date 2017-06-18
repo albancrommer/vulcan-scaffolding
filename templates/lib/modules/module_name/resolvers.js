@@ -2,9 +2,9 @@
 
 Three resolvers are defined:
 
-- list (e.g.: %MODULE_NAME_U%sList(terms: JSON, offset: Int, limit: Int) )
-- single (e.g.: %MODULE_NAME_U%sSingle(_id: String) )
-- listTotal (e.g.: %MODULE_NAME_U%sTotal )
+- list (e.g.: %MODULE_NAME_U%List(terms: JSON, offset: Int, limit: Int) )
+- single (e.g.: %MODULE_NAME_U%Single(_id: String) )
+- listTotal (e.g.: %MODULE_NAME_U%Total )
 
 */
 
@@ -15,33 +15,33 @@ const resolvers = {
 
   list: {
 
-    name: '%MODULE_NAME_U%sList',
+    name: '%MODULE_NAME_U%List',
 
     resolver(root, {terms = {}}, context, info) {
-      let {selector, options} = context.%MODULE_NAME_C%s.getParameters(terms, {}, context.currentUser);
-      return context.%MODULE_NAME_C%s.find(selector, options).fetch();
+      let {selector, options} = context.%MODULE_NAME_C%.getParameters(terms, {}, context.currentUser);
+      return context.%MODULE_NAME_C%.find(selector, options).fetch();
     },
 
   },
 
   single: {
     
-    name: '%MODULE_NAME_U%sSingle',
+    name: '%MODULE_NAME_U%Single',
 
     resolver(root, {documentId}, context) {
-      const document = context.%MODULE_NAME_C%s.findOne({_id: documentId});
-      return context.Users.restrictViewableFields(context.currentUser, context.%MODULE_NAME_C%s, document);
+      const document = context.%MODULE_NAME_C%.findOne({_id: documentId});
+      return context.Users.restrictViewableFields(context.currentUser, context.%MODULE_NAME_C%, document);
     },
   
   },
 
   total: {
     
-    name: '%MODULE_NAME_U%sTotal',
+    name: '%MODULE_NAME_U%Total',
     
     resolver(root, {terms = {}}, context) {
-      const {selector, options} = context.%MODULE_NAME_C%s.getParameters(terms, {}, context.currentUser);
-      return context.%MODULE_NAME_C%s.find(selector, options).count();
+      const {selector, options} = context.%MODULE_NAME_C%.getParameters(terms, {}, context.currentUser);
+      return context.%MODULE_NAME_C%.find(selector, options).count();
     },
   
   }

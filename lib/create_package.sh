@@ -26,8 +26,8 @@ function create_package(){
     # It should generate the lib/server content 
     copy_template "lib/server/main.js" "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/server/main.js" 
 
-    # It should finish
-    echo "$PACKAGE_NAME"
+    # It should inform about success
+    green "Successfully created package" 
     
 }
 

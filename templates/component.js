@@ -11,7 +11,7 @@ const %COMPONENT_NAME% = ({documentId, closeModal}) =>
   <Components.SmartForm 
     collection={%COLLECTION_NAME_C%}
     documentId={documentId}
-    mutationFragment={getFragment('MoviesItemFragment')}
+    mutationFragment={getFragment('%COLLECTION_NAME_U%ItemFragment')}
     showRemove={true}
     successCallback={document => {
       closeModal();

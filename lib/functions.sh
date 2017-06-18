@@ -30,8 +30,8 @@ function color(){
     echo -e "${col}${2}${reset}"
 }
 
-function green(){ color green "@"; } 
-function grey(){ color grey "@"; } 
+function green(){ color green "$@"; } 
+function grey(){ color grey "$@"; } 
 function red(){ color red "$@"; }
 function panic(){ red "$1" ; exit 1 ; } 
 

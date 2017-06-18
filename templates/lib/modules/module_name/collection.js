@@ -1,6 +1,6 @@
 /*
 
-The main %MODULE_NAME_C%s collection definition file.
+The main %MODULE_NAME_C% collection definition file.
 
 */
 
@@ -12,9 +12,9 @@ import mutations from './mutations.js';
 import './permissions.js';
 import './parameters.js';
 
-const %MODULE_NAME_C%s = createCollection({
+const %MODULE_NAME_C% = createCollection({
 
-  collectionName: '%MODULE_NAME_C%s',
+  collectionName: '%MODULE_NAME_C%',
 
   typeName: '%MODULE_NAME_C%',
 
@@ -26,4 +26,4 @@ const %MODULE_NAME_C%s = createCollection({
 
 });
 
-export default %MODULE_NAME_C%s;
+export default %MODULE_NAME_C%;

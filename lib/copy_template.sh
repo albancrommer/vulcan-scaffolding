@@ -35,5 +35,8 @@ function copy_template(){
         sed -i "s!$VAR!$VALUE!g" $TARGET_FILE
     done 
 
+    # It should inform about success
+    green "Successfully created $TARGET_FILE" 
+
 }
 
