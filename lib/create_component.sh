@@ -21,7 +21,7 @@ function create_component(){
     fi
 
     # It should require a valid module 
-    directory_exists "$PACKAGE_PATH/$PACKAGE_NAME/lib/modules/$MODULE_NAME" || panic "Module doesn't exist"
+    directory_exists "$PACKAGE_PATH/$PACKAGE_NAME/lib/modules/${MODULE_NAME}s" || panic "Module doesn't exist"
 
     DESCRIPTION=$(ask "Please provide a description for your component. Ex: 'Provides a movie list': ")
     COMPONENT_NAME=$(ask "Please provide a component name. Ex: 'MyMovieList': ")
@@ -33,7 +33,7 @@ function create_component(){
     COMPONENT_NAME_U=${COMPONENT_NAME,,}
 
     # It should template the component
-    copy_template component.js "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/components/${MODULE_NAME}/${COMPONENT_NAME}.jsx" \
+    copy_template component.js "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/components/${MODULE_NAME}s/${COMPONENT_NAME}.jsx" \
         %DESCRIPTION%="$DESCRIPTION" \
         %COMPONENT_NAME%="$COMPONENT_NAME" \
         %COLLECTION_NAME_C%="$COLLECTION_NAME_C" \
@@ -41,7 +41,7 @@ function create_component(){
 
     # It should create a partial to import a route
     echo "
-import ${COMPONENT_NAME} from '../components/${MODULE_NAME}/${COMPONENT_NAME}.jsx';
+import ${COMPONENT_NAME} from '../components/${MODULE_NAME}s/${COMPONENT_NAME}.jsx';
 addRoute({ name: '${COMPONENT_NAME_U}', path: '${COMPONENT_ROUTE}', component: ${COMPONENT_NAME_C} });
 " >>  "${PACKAGE_PATH}/${PACKAGE_NAME}/lib/modules/routes.js"
     
