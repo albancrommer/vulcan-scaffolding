@@ -1,6 +1,12 @@
+The Yeoman version is **FAR** better, please use https://github.com/mechanical-turk/generator-vulcanjs 
+
+Yeoman will give you nice & efficient console manipulation methods for everything Vulcan. 
+
+Go there now ;)
+
 # vulcan-scaffolding
 
-*Caution* This is beta software. You will break things by using it in existing projects.
+*Caution* This is legacy unmaintained, code: please disregard.
 
 ## Requisites
 
